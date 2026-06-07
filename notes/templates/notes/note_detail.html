@@ -1,0 +1,35 @@
+{% extends 'notes/base.html' %}
+
+{% block title %} {{ note.title }} {% endblock %}
+
+{% block content %}
+
+<h1>
+    {% if note.is_pinned %}
+        📌
+    {% endif %}
+
+    {{ note.title }}
+</h1>
+
+<p> {{ note.content | linebreak }} </p>
+
+<p>
+    <strong> Created : </strong>
+    {{ notes.created_at }}
+</p>
+
+<form method="POST" action="{% url 'toggle_pin' %}">
+    {% csrf_token %}
+
+    <button type="submit">
+        {% if note.is_pinned %}
+            Unpin
+        {% else %}
+            Pin
+        {% endif %}
+    </button>
+</form>
+
+{% endblock %}
+

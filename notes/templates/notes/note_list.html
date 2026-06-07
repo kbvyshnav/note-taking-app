@@ -1,64 +1,36 @@
 {% extends 'notes/base.html' %}
 
-{% block title %}
-All Notes
-{% endblock %}
+{% block title %} All Notes {% endblock %}
 
 {% block content %}
 
 <h1>My Notes</h1>
-
 {% if notes %}
-
     {% for note in notes %}
-
         <div class="card">
-
             <h3>
-                {% if note.is_pinned %}
-                    📌
-                {% endif %}
-
-                <a href="{% url 'note_detail' note.pk %}">
-                    {{ note.title }}
-                </a>
+                <p>{{ note.content | truncatewords:20}}</p>
+                <small> Created : {{ notes.created_at }}</small>
             </h3>
-
-            <p>
-                {{ note.content|truncatewords:20 }}
-            </p>
-
-            <small>
-                Created: {{ note.created_at }}
-            </small>
-
+            
             <br><br>
 
-            <form method="POST"
-                  action="{% url 'toggle_pin' note.pk %}">
-
+            <form method="POST" action="{% url 'toggle_pin'  note.pk %}">
                 {% csrf_token %}
-
                 <button type="submit">
-
                     {% if note.is_pinned %}
                         Unpin
                     {% else %}
-                        Pin
+                        Pin 
                     {% endif %}
-
                 </button>
-
             </form>
-
         </div>
-
     {% endfor %}
-
 {% else %}
-
-    <p>No notes found.</p>
-
+        <p>No notes found.</p>
 {% endif %}
 
+
 {% endblock %}
+
