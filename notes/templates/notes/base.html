@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Notes App{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        nav {
+            margin-bottom: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 20px;
+            color: blue;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="{% url 'note_list' %}">All Notes</a>
+        <a href="{% url 'create_note' %}">Create Note</a>
+    </nav>
+
+    <hr>
+
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>
