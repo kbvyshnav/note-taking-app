@@ -29,7 +29,11 @@
         </div>
     {% endfor %}
 {% else %}
-        <p>No notes found.</p>
+
+        <p>You haven't created any notes yet.</p>
+
+        <p><a href="{% url 'create_note' %}"> Create your first note </a></p>
+
 {% endif %}
 
 

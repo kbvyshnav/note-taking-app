@@ -18,3 +18,8 @@ class NoteAdmin(admin.ModelAdmin):
     list_filter = (
         'is_pinned',
     )
+
+    ordering = (
+        'is_pinned',
+        'created_at',
+    )
