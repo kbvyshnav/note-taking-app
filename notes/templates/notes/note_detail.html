@@ -4,44 +4,55 @@
 
 {% block content %}
 
-<h1>
-    {% if note.is_pinned %}
-        📌
-    {% endif %}
+<a href="{% url 'note_list' %}" class="btn btn-link ps-0 mb-3">
+    <i class="bi bi-arrow-left"></i> Back to all notes
+</a>
 
-    {{ note.title }}
-</h1>
+<div class="card {% if note.is_pinned %}pinned{% endif %}">
+    <div class="card-body">
 
-<p> {{ note.content | linebreaks }} </p>
+        <h1 class="card-title">
+            {% if note.is_pinned %}
+                <span class="badge bg-warning text-dark"><i class="bi bi-pin-angle-fill"></i> Pinned</span>
+            {% endif %}
+            {{ note.title }}
+        </h1>
 
-<p>
-    <strong> Created : </strong>
-    {{ note.created_at }}
-</p>
+        <p class="text-muted mb-1">
+            <i class="bi bi-calendar-plus"></i> Created : {{ note.created_at }}
+        </p>
+        <p class="text-muted">
+            <i class="bi bi-clock-history"></i> Last updated : {{ note.updated_at }}
+        </p>
 
-<form method="POST" action="{% url 'toggle_pin' note.pk %}">
-    {% csrf_token %}
+        <hr>
 
-    <button type="submit">
-        {% if note.is_pinned %}
-            Unpin
-        {% else %}
-            Pin
-        {% endif %}
-    </button>
+        <p class="card-text fs-5">{{ note.content | linebreaks }}</p>
 
-    <p>
-        <a href="{% url 'edit_note' note.pk %}"> Edit Note </a>
-    </p>
+        <hr>
 
-    <p>
-        <a href="{% url 'delete_note' note.pk %}"> Delete Note </a>
-    </p>
-    
+        <div class="d-flex gap-2">
+            <a href="{% url 'edit_note' note.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil-square"></i> Edit Note
+            </a>
 
-</form>
+            <form method="POST" action="{% url 'toggle_pin' note.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-warning">
+                    {% if note.is_pinned %}
+                        <i class="bi bi-pin-angle"></i> Unpin
+                    {% else %}
+                        <i class="bi bi-pin-angle-fill"></i> Pin
+                    {% endif %}
+                </button>
+            </form>
 
+            <a href="{% url 'delete_note' note.pk %}" class="btn btn-outline-danger ms-auto">
+                <i class="bi bi-trash"></i> Delete
+            </a>
+        </div>
 
+    </div>
+</div>
 
 {% endblock %}
-
