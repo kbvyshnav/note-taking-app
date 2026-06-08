@@ -10,7 +10,7 @@ def note_list(request):
         '-is_pinned',
         '-created_at'
     )
-    return render(request,'notes/notes_list.html',{'notes': notes})
+    return render(request,'notes/note_list.html',{'notes': notes})
 
 def note_detail(request, pk):
     
@@ -27,10 +27,12 @@ def create_note(request):
         if form.is_valid():
             form.save()
             return redirect('note_list')
-        else:
-            form.Noteform()
+    else:
+        form = NoteForm()
 
-        return redirect(request,'notes/create_note.html',{'form':form})
+    return render(request,'notes/create_note.html',{'form':form})
+    
+
     
 def toggle_pin(request,pk):
     if request.method == 'POST':

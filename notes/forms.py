@@ -4,7 +4,7 @@ from .models import Note
 
 class NoteForm(forms.ModelForm):
 
-    class Mets:
+    class Meta:
         model = Note
 
         fields = [
