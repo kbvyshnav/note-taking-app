@@ -9,7 +9,8 @@
     {% for note in notes %}
         <div class="card">
             <h3>
-                <p>{{ note.content | truncatewords:20}}</p>
+                <a href="{% url 'note_detail' note.pk %}">{{ note.content | truncatewords:20}}</a>
+                <br>
                 <small> Created : {{ note.created_at }}</small>
             </h3>
             

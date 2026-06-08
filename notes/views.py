@@ -41,3 +41,28 @@ def toggle_pin(request,pk):
         note.save()
 
     return redirect('note_list')
+
+def edit_note(request,pk):
+    note = get_object_or_404(Note, pk=pk)
+
+    if request.method == 'POST':
+        form = NoteForm(request.POST, instance=note)
+
+        if form.is_valid():
+            form.save()
+            return redirect('note_detail', pk=note.pk)
+        
+    else:
+        form = NoteForm(instance=note)
+
+    return render(request, 'notes/edit_note.html', {'form':form, 'note':note,})
+
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+
+    if request.method == "POST":
+        note.delete()
+
+        return redirect('note_list')
+    
+    return render(request, 'notes/delete_note.html', {'note': note})

@@ -12,14 +12,14 @@
     {{ note.title }}
 </h1>
 
-<p> {{ note.content | linebreak }} </p>
+<p> {{ note.content | linebreaks }} </p>
 
 <p>
     <strong> Created : </strong>
-    {{ notes.created_at }}
+    {{ note.created_at }}
 </p>
 
-<form method="POST" action="{% url 'toggle_pin' %}">
+<form method="POST" action="{% url 'toggle_pin' note.pk %}">
     {% csrf_token %}
 
     <button type="submit">
@@ -29,7 +29,19 @@
             Pin
         {% endif %}
     </button>
+
+    <p>
+        <a href="{% url 'edit_note' note.pk %}"> Edit Note </a>
+    </p>
+
+    <p>
+        <a href="{% url 'delete_note' note.pk %}"> Delete Note </a>
+    </p>
+    
+
 </form>
+
+
 
 {% endblock %}
 
